@@ -1,26 +1,22 @@
-import { PrismaClient } from "@prisma/client";
-import express from "express";
-import mongoose from "mongoose"; // Use ES6 import style for consistency
 
+import express, { Request, Response } from "express";
+import userRoute from "./routes/userRoute"
+const cors = require("cors")
+const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv").config();
-const app = express(); // Explicitly define `app` as an Application type
 
+const app = express();
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }))
 
-const PORT = process.env.PORT || 5000;
+const PORT =  5001;
+app.get("/", (req:any,res:any)=>{
+  return res.send("Hi there")
+})
 
-app.get("/", (req: any, res: any) => {
-  return res.send("Hi there");
-});
+app.use("/api/users", userRoute);
 
-mongoose
-  .connect(process.env.DATABASE_URL as string)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`server running on port ${PORT}`);
-    });
-  })
-  .catch((err: any) => {
-    console.log(err);
-  });
+app.listen(PORT, () => {
+      console.log(`server running on port ${PORT}`)
+})
