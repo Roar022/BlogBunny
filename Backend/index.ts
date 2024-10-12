@@ -1,6 +1,7 @@
 
 import express, { Request, Response } from "express";
 import userRoute from "./routes/userRoute"
+import blogRoute from "./routes/blogRoute"
 const cors = require("cors")
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv").config();
@@ -16,6 +17,7 @@ app.get("/", (req:any,res:any)=>{
 })
 
 app.use("/api/users", userRoute);
+app.use("/api/blogs", blogRoute);
 
 app.listen(PORT, () => {
       console.log(`server running on port ${PORT}`)
