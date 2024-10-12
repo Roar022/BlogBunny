@@ -1,4 +1,4 @@
-interface UserTypeTs{
+interface UserType{
     id:string
     username: string
     email: string
