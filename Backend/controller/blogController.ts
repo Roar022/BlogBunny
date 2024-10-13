@@ -277,3 +277,96 @@ export const getUserBlog = asyncHandler(async (req: AuthenticatedRequest, res: R
 
   }
 });
+
+export const deleteBlog = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  const user = req.user;
+  const blogId = req.params.blogId;
+  
+  // console.log(user)
+  const prisma = new PrismaClient();
+  try {
+    
+    if(!blogId){
+      throw new Error("Invalid Request.");
+  }
+  // Check if the blog exists
+  console.log(blogId,user.id)
+  const existingBlog = await prisma.blog.findFirst({
+    where: {
+      id: blogId,
+      userId: user.id, // Ensure the blog belongs to the logged-in user
+    },
+  });
+  
+  if (!existingBlog) {
+    throw new Error("Blog not found or you do not have permission to delete it.");
+  }
+
+  await prisma.likedBlog.deleteMany({
+    where: {
+      blogId: blogId,
+    },
+  });
+  // Delete the blog
+  await prisma.blog.delete({
+    where: {
+      id: blogId,
+    },
+  });
+
+  return res.status(200).json({ message: "Blog deleted successfully." });
+} finally {
+  await prisma.$disconnect()
+}
+});
+
+export const getAllBlogsExceptUser = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
+  const user = req.user;
+  
+  const prisma = new PrismaClient();
+  try {
+    
+    const blogs = await prisma.blog.findMany({
+      where: {
+        NOT: {
+          userId: user.id,
+        },
+      },
+      include: {
+        user: true, // Include the user relation
+      },
+    });
+    
+    return res.status(200).json({blogs, message:"success"});
+  } finally {
+    await prisma.$disconnect()
+  }
+})
+
+export const isLikedBlog = asyncHandler(async (req:AuthenticatedRequest, res:Response) =>{
+  const user = req.user;
+  const {blogId} = req.body;
+  if(!blogId){
+    throw new Error("Invalid Request. Blog not found.")
+  }
+  const prisma = new PrismaClient();
+  try{
+    const isLiked = await prisma.likedBlog.findFirst({
+      where:{
+        userId: user.id,
+        blogId: blogId
+      }
+    })
+    if(isLiked){
+      res.status(200).json({status:"success", isLiked:true})
+    }
+    else{
+      res.status(200).json({status:"success", isLiked:false})
+    }
+
+  }
+  finally{
+    await prisma.$disconnect()
+  }
+
+})

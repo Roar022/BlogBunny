@@ -2,6 +2,7 @@
 import express, { Request, Response } from "express";
 import userRoute from "./routes/userRoute"
 import blogRoute from "./routes/blogRoute"
+import { errorHandler } from "./middleware/errorMiddleware";
 
 const cors = require("cors")
 const cookieParser = require("cookie-parser");
@@ -24,6 +25,8 @@ app.get("/", (req:any,res:any)=>{
 
 app.use("/api/users", userRoute);
 app.use("/api/blogs", blogRoute);
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
       console.log(`server running on port ${PORT}`)
