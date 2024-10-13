@@ -3,10 +3,15 @@
 generator client {
   provider = "prisma-client-js"
 }
+
+// declare the data source
 datasource db {
   provider = "mongodb"
   url      = env(process.env.DATABASE_URL)
 }
+
+// define your user model 
+// (id:mongodb id, blogs: Blog[], Comments: Comments[]) 
 model User {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   username String  @unique
@@ -16,12 +21,15 @@ model User {
   blogs    Blog[]
   Comments Comments[]
 }
+
+// define blog model
+// (id:mongodb id, userId: User mongodb id, user: User, Comments: Comments[])
 model Blog {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   label       String
   Description String
-  userId      String     @db.ObjectId
+  userId      String     @db.ObjectId // still user id
   user        User       @relation(fields: [userId], references: [id])
   likes       Int        @default(0)
   views       Int        @default(0)
@@ -29,6 +37,9 @@ model Blog {
   updatedAt   DateTime   @updatedAt
   createdAt   DateTime   @default(now())
 }
+
+// cretaing comments model
+// (id:mongodb id, userId: User mongodb id, blogId: Blog mongodb id, user: User, blog: Blog)
 model Comments {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   description String
