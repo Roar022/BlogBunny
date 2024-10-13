@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv").config();
 const app = express();
 
-// 
+// used to parse cookie
 app.use(cookieParser());
 
 // Enables parsing of JSON request bodies
