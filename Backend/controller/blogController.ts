@@ -50,3 +50,42 @@ export const createBlog = asyncHandler(async(req:AuthenticatedRequest, res:Respo
     
     return res.status(200).json(newBlog)
 })
+
+export const updateBlog = asyncHandler(async(req:AuthenticatedRequest, res:Response)=>{
+  const user = req.user;
+  const body = req.body;
+  const { blogId, title, label, description,   } = body;
+
+  if (!blogId || !title || !label || !description) {
+    throw new Error("All fields are required.");
+  }
+
+  const prisma = new PrismaClient();
+  try{
+    const existingBlog = await prisma.blog.findFirst({
+      where: {
+        id: blogId,
+        userId: user.id,
+      },
+    });
+  
+    if (!existingBlog) {
+      throw new Error("Blog not found or you do not have permission to update it.");
+    }
+  
+    // Update the blog
+    const updatedBlog = await prisma.blog.update({
+      where: { id: blogId },
+      data: {
+        title,
+        label,
+        Description: description,
+      },
+    });
+  
+    return res.status(200).json({updatedBlog, status:"success"});
+  }
+  finally{
+    await prisma.$disconnect();
+  }
+})
