@@ -89,3 +89,63 @@ export const updateBlog = asyncHandler(async(req:AuthenticatedRequest, res:Respo
     await prisma.$disconnect();
   }
 })
+
+export const likeBlog = asyncHandler(async(req:AuthenticatedRequest, res:Response)=>{
+  const user = req.user;
+  const body = req.body;
+  const { blogId } = body;
+
+  if (!blogId) {
+    throw new Error("Blog ID is required.");
+  }
+
+  const prisma = new PrismaClient();
+
+  try{
+
+    const existingBlog = await prisma.blog.findFirst({
+      where: {
+        id: blogId,
+      },
+    });
+  
+    if (!existingBlog) {
+      throw new Error("Blog not found.");
+    }
+  
+    // Check if the user has already liked the blog
+    const existingLike = await prisma.likedBlog.findFirst({
+      where: {
+        userId: user.id,
+        blogId: blogId,
+      },
+    });
+  
+    if (existingLike) {
+      throw new Error("You have already liked this blog.");
+    }
+  
+    // Create a new liked blog entry
+    const increase = await prisma.blog.update({
+      where: {
+        id: blogId
+      },
+      data: {
+        likes: {
+          increment: 1, // Increment the 'likes' count by 1
+        },
+      },
+    })
+    const likedBlog = await prisma.likedBlog.create({
+      data: {
+        userId: user.id,
+        blogId: blogId,
+      },
+    });
+  
+    return res.status(200).json({ message: "Blog liked successfully." });
+  }
+  finally{
+    await prisma.$disconnect();
+  }
+})
