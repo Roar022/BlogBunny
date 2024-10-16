@@ -1,0 +1,29 @@
+.landing_page{
+    background-color: #4481eb;
+    
+}
+.blue_drone{
+    width: 320px;
+    position: fixed;
+    bottom:80px;
+    left: -80px;
+}
+.blue_blog{
+    width: 58%;
+    position: fixed;
+    bottom: -200px;
+    right: 300px;
+   
+}
+.blue_heartbeat{
+    width: 120px;
+    position: fixed;
+    bottom:20px;
+    right: 70px;
+}
+.blue_remote{
+    width: 230px;
+    position: fixed;
+    bottom:100px;
+    right: -80px;
+}
