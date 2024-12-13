@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,7 +10,795 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main_logo{
+  background-image: url("./assets/logo/2.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  mix-blend-mode: color-burn;
+  height: 130px;
+  width: 180px;
+  margin-top: -30px ;
+  margin-bottom: -30px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+img:not(._img_){
+  width: 60%;
+  min-width: 250px;
+  height: auto;
+  max-height: 500px;
+  margin: auto;
+}
+
+@media all and (max-width:750px){
+  img:not(._img_){
+    width: 85%;
+    min-width: 250px;
+    height: auto;
+    max-height: 500px;
+    margin: auto;
+  }
+}
+.community_background{
+  background-image: url("./assets/community_pos1.jpg");
+
+  background-repeat: no-repeat;
+  background-size: cover;
+ background-position: center;
+  /* Other background properties */
+
+  /* Apply a scale transformation to reverse the image horizontally */
+  /* transform: scaleX(-1); */
+  
+}
+
+.exampleforscroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+/* *************************** */
+
+
+.landing_page{
+
+  /* blue */
+  background-color: #4481eb;  
+
+  /* red */
+  /* background-color: rgb(188, 56, 46); */
+
+  /* green */
+  /* background-color: rgb(56, 141, 128); */
+  
+  animation-name: animate-background;
+  animation-timing-function:cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes animate-background {
+  0%{
+      /* bottom: 100px; */
+      background-color: #4481eb;  
+  }
+  27%{
+      background-color: #4481eb;  
+  }
+  
+  33%{
+      background-color: rgb(177, 63, 55);
+  }
+  60%{
+      background-color: rgb(177, 63, 55);
+  }
+  63%{
+      background-color: rgb(56, 141, 128);
+  }
+  94%{
+      background-color: rgb(56, 141, 128); 
+  }
+ 
+}
+
+
+._img_{
+  position: fixed;
+}
+._img_blog{
+  width: 58%;
+  bottom: -450px;
+  right: 20%;
+}
+
+/* ****************************************************** */
+@media all and (max-width:900px) {
+    ._img_{
+      visibility: hidden;
+      
+    }
+
+    .blue_heartbeat{
+      visibility: visible;
+
+      width: 80px;
+
+      bottom:-450px;
+      right: 70px;
+      animation-name: animate-heartbeat;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      /* animation-duration: 4s; */
+      /* animation-delay: 3s; */
+      animation-duration: 12s;
+      animation-iteration-count: infinite;
+    }
+    .red_apple {
+      visibility: visible;
+
+      left: 190px;
+      bottom: -450px;
+      width: 70px;
+      height: 90px;
+      animation-name: animate_red_apple;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      /* animation-duration: 4s; */
+      /* animation-delay: 3s; */
+      animation-duration: 12s;
+      animation-delay: 4s;
+      animation-iteration-count: infinite;
+      
+    }
+    
+    .red_cup   {
+      visibility: visible;
+
+      z-index: 2;
+      right: 240px;
+      bottom: -450px;
+      width: 100px;
+      height: 140px;
+      animation-name: animate_red_cup;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      /* animation-duration: 4s; */
+      /* animation-delay: 3s; */
+      animation-duration: 12s;
+      animation-delay: 4s;
+      animation-iteration-count: infinite;
+    
+    }
+    .green_a {
+      visibility: visible;
+
+      width: 85px;
+      height: 85px;
+      right: 271px;
+      bottom: -450px;
+      animation-name: animate_green_a;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      /* animation-duration: 4s; */
+      /* animation-delay: 3s; */
+      animation-duration: 12s;
+      animation-delay: 8s;
+      animation-iteration-count: infinite;
+    }
+    .green_b {
+      visibility: visible;
+
+      width: 85px;
+      height: 85px;
+      right: 151px;
+      bottom: -450px;
+      animation-name: animate_green_b;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      /* animation-duration: 4s; */
+      /* animation-delay: 3s; */
+      animation-duration: 12s;
+      animation-delay: 8s;
+      animation-iteration-count: infinite;
+    }
+    .blue_remote{
+      width: 150px;
+      visibility: visible;
+      bottom:-450px;
+      right: -80px;
+      animation-name: animate-remote;
+      animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      /* animation-duration: 4s; */
+      /* animation-delay: 3s; */
+      animation-duration: 12s;
+      animation-iteration-count: infinite;
+    }
+   
+}
+/* ______________________________________________________________________________________ */
+/* ***************Blue Background************************** */
+.blue_drone{
+  width: 320px;
+  /* bottom:80px; */
+  bottom:-430px;
+  left: -80px;
+  animation-name: animate-drone;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate-drone{
+  0%{
+    bottom:  -430px;
+  }
+  12%{
+      bottom: 80px;
+  }
+  25%{
+      bottom: 80px;
+  }
+  35%{
+      bottom: -430px;
+  }
+
+
+
+}
+.blue_blog{
+  animation-name: animate-blog;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate-blog {
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: -200px;
+    }
+    25%{
+        bottom: -200px;
+    }
+    37%{
+        bottom: -450px;
+    }
+}
+.blue_heartbeat{
+  width: 120px;
+  bottom:-450px;
+  right: 70px;
+  animation-name: animate-heartbeat;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate-heartbeat {
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 20px;
+    }
+    25%{
+        bottom: 20px;
+    }
+    37%{
+        bottom: -450px;
+    }
+}
+.blue_remote{
+  width: 230px;
+  bottom:-450px;
+  right: -80px;
+  animation-name: animate-remote;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate-remote {
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 100px;
+    }
+    25%{
+        bottom: 100px;
+    }
+    37%{
+        bottom: -450px;
+    }
+}
+
+
+
+
+/* **************Red Background ************************************ */
+.red_blog  {
+  z-index: 10;
+  animation-name: animate-red;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate-red {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: -200px;
+    }
+    25%{
+        bottom: -200px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.red_apple {
+  left: 190px;
+  bottom: -450px;
+  width: 70px;
+  height: 90px;
+  animation-name: animate_red_apple;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+  
+}
+@keyframes animate_red_apple {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 150px;
+    }
+    25%{
+        bottom: 150px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+
+.red_belen {
+  right: -60px;
+  bottom: -450px;
+  width: 250px;
+  height: 180px;
+  animation-name: animate_red_belen;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+
+}
+
+@keyframes animate_red_belen {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 160px;
+    }
+    25%{
+        bottom: 160px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.red_fette {
+  left: -60px;
+  bottom: -450px;
+  width: 190px;
+  height: 230px;
+  animation-name: animate_red_fette;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_red_fette {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 40px;
+    }
+    25%{
+        bottom: 40px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.red_spoon {
+  
+  left: -90px;
+  bottom: -450px;
+  width: 270px;
+  height: 270px;
+  animation-name: animate_red_spoon;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_red_spoon {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 180px;
+    }
+    25%{
+        bottom: 180px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.red_plate {
+  right: -80px;
+  bottom: -450px;
+  width: 270px;
+  height: 270px;
+  animation-name: animate_red_plate;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate_red_plate {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: -200px;
+    }
+    25%{
+        bottom: -200px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.red_plate2{
+      
+  left: -30px;
+  bottom: -450px;
+  width: 270px;
+  height: 270px;
+  animation-name: animate_red_plate2;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_red_plate2 {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: -180px;
+    }
+    25%{
+        bottom: -180px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.red_cup   {
+  z-index: 2;
+  right: 240px;
+  bottom: -450px;
+  width: 100px;
+  height: 140px;
+  animation-name: animate_red_cup;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 4s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_red_cup {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 120px;
+    }
+    25%{
+        bottom: 120px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+
+/* *************Green Background********************** */
+
+.green_blog   {
+  animation-name: animate_green_blog;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_green_blog {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: -200px;
+    }
+    25%{
+        bottom: -200px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+
+.green_a {
+  width: 85px;
+  height: 85px;
+  right: 271px;
+  bottom: -450px;
+  animation-name: animate_green_a;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate_green_a {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 223px;
+    }
+    25%{
+        bottom: 223px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.green_b {
+  width: 85px;
+  height: 85px;
+  right: 151px;
+  bottom: -450px;
+  animation-name: animate_green_b;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate_green_b {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 120px;
+    }
+    25%{
+        bottom: 120px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.green_c      {
+  width: 85px;
+  height: 85px;
+  left: 151px;
+  bottom: -450px;
+  animation-name: animate_green_c;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate_green_c{
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: -30px;
+    }
+    25%{
+        bottom: -30px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.green_chappal{
+  width: 170px;
+  height: 270px;
+  right: -50px;
+  bottom: -450px;
+  animation-name: animate_green_chappal;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate_green_chappal {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+        bottom: 40px;
+    }
+    25%{
+        bottom: 40px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.green_coffe  {
+  width: 130px;
+  height: 130px;
+  left: 230px;
+  bottom: -450px;
+  animation-name: animate_green_coffe;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+}
+@keyframes animate_green_coffe {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+      bottom: 240px;
+    }
+    25%{
+      bottom: 240px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.green_flowers{
+  width: 350px;
+  height: 370px;
+  left: -180px;
+  bottom: -450px;
+  animation-name: animate_green_flowers;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_green_flowers {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+      bottom: -10px;
+    }
+    25%{
+      bottom: -10px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+.green_image  {
+  width: 270px;
+  height: 270px;
+  right: 30px;
+  bottom: -450px;
+  animation-name: animate_green_image;
+  animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  /* animation-duration: 4s; */
+  /* animation-delay: 3s; */
+  animation-duration: 12s;
+  animation-delay: 8s;
+  animation-iteration-count: infinite;
+
+}
+@keyframes animate_green_image {
+
+  0%{
+      bottom:  -450px;
+    }
+    12%{
+      bottom: -220px;
+    }
+    25%{
+      bottom: -220px;
+    }
+    37%{
+        bottom: -450px;
+    }
+  
+}
+
+
