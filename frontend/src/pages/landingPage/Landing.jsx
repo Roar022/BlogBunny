@@ -1,5 +1,6 @@
 import React from "react";
 import "./landing.css";
+import {motion} from "framer-motion"
 // blue background
 import drone from "../../assets/Images/blue_drone.png";
 import blogImg from "../../assets/Images/blue_blog.png";
@@ -26,18 +27,20 @@ import green_coffe from "../../assets/Images/green_coffee.png";
 import green_flowers from "../../assets/Images/green_flowers.png";
 import green_image from "../../assets/Images/green_image.png";
 import { Link, redirect } from "react-router-dom";
+import LandingNavbar from "../../components/LandingNavbar";
 
-export function loader() {
+export function loader({ request }) {
   if (sessionStorage.getItem("token") !== null) {
-      return redirect("/dashboard?message=AlreadyLogin");
+    throw redirect("/dashboard?message=AlreadyLogin");
   }
   return null;
 }
 
 const Landing = () => {
   return (
-    <>
-      <div className="h-screen w-screen landing_page">
+    
+      <div
+      className="h-screen w-screen landing_page">
         {/* <div className="h-16  px-4 w-screen flex justify-between items-center">
           <div className=" text-white">
             <LogoSvg />
@@ -51,20 +54,10 @@ const Landing = () => {
             </Link>
           </div>
         </div> */}
-        <div className="h-16  px-4 w-screen flex justify-between items-center">
-          <div className=" text-white">LOGO</div>
-          <div className="">
-            <button className="px-6 py-1 bg-orange-400 text-lg shadow-md rounded-3xl hover:text-xl text-gray-200 transition-all duration-200 outline-none">
-              Login
-            </button>
-            <button className="px-3 py-2  text-white hover:text-xl text-lg transition-all duration-200  outline-none">
-              Sign Up
-            </button>
-          </div>
-        </div>
+        <LandingNavbar />
         <div className="w-full text-white text-center flex flex-col justify-center items-center gap-y-4 mt-14">
           <h1 className="text-4xl">Publish your passions, your way</h1>
-          <div className="text-sm">c
+          <div className="text-sm">
             Create a unique and beatiful blog easily
           </div>
           <Link
@@ -181,7 +174,7 @@ const Landing = () => {
           className="_img_ _red_animate red_cup   "
         />
       </div>
-    </>
+    
   );
 };
 
