@@ -59,7 +59,9 @@ const Register = () => {
     e.preventDefault();
     // console.log(toast.POSITION);
     const idLoad = toast.loading("Checking Credentials...",);
-    axios.post(`${Server_url}api/users/login`,signin)
+    axios.post(`${Server_url}api/users/login`,signin,{
+      withCredentials: true
+    })
     .then((res)=>{
       sessionStorage.setItem("token",res.data.user.token)
       sessionStorage.setItem("email",res.data.user.email)
@@ -76,7 +78,7 @@ const Register = () => {
         },
         [500]
       );
-      console.log(e);
+      // console.log(res);
       navigate("/dashboard")
 
       console.log(res)

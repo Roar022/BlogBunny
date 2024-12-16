@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 
 const CommunityBlog = () => {
   const params = useParams();
+  // console.log(params);
   const [showadd, setShowadd] = useState(false);
   const [blog, setBlog] = useState([]);
   const [valued, setValued] = useState({
@@ -34,8 +35,8 @@ const CommunityBlog = () => {
         const data=await axios.put(`http://localhost:1337/api/blogs/${params.cid}`,{data:valued})
         console.log(data)
         const id = data.data.data.id;
-        const t = data.data.data.attributes.title;
-        const d = data.data.data.attributes.description;
+        const t = data.data.data.title;
+        const d = data.data.data.description;
         const blog={
             id:id,
             title:t,
@@ -108,9 +109,10 @@ const CommunityBlog = () => {
       const bl = await axios.get(
         `http://localhost:1337/api/blogs/${params.cid}`
       );
+      // console.log(bl.data.data)
       const id = bl.data.data.id;
-      const t = bl.data.data.attributes.title;
-      const d = bl.data.data.attributes.description;
+      const t = bl.data.data.title;
+      const d = bl.data.data.description;
       const blg = {
         id: id,
         title: t,

@@ -120,16 +120,18 @@ export const loginUser = asyncHandler(async (req:Request, res:Response) => {
 
             // Generate Token 
             const token = generateToken(user.id)
-            // console.log(user.id)
+            // console.log("login token ",token)
+            // console.log(Date.now());
             //Send HTTP-only cookie (so that it can not be accessed by js or cross origin requests for security)
             res.cookie("signInToken", token, {
                 path: "/",
                 httpOnly: true,
-                expires: new Date(Date.now() + 1000 * 86400), // 1 day
+                expires: new Date(Date.now() + 360000000), // 1 day
                 sameSite: "none",
                 secure: false
             })
-
+            console.log("Cookie headers:", res.getHeaders());
+            // console.log(token);
             return res.status(200).json({user:{
                 email:user.email,
                 username: user.username,

@@ -18,8 +18,11 @@ app.use(express.json());
 
 // Parse incoming requests data
 app.use(express.urlencoded({ extended: true }))
-app.use(cors({
-  origin:"http://localhost:3000", credentials : true }));
+const corsOptions = {
+  origin: "http://localhost:3000", // Allow frontend domain
+  credentials: true, // Allow cookies to be sent and received
+};
+app.use(cors(corsOptions));
 const PORT =  5000;
 app.get("/", (req:any,res:any)=>{
   return res.send("Hi there")

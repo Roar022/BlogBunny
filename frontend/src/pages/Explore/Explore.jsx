@@ -24,6 +24,7 @@ const Explore = () => {
   } else {
     url = `${Server_url}api/blogs/getblogs`;
   }
+  // console.log(url);
 
   function findMatches(wordToMatch, blogs) {
     return blogs.filter((blog) => {
@@ -146,7 +147,7 @@ const Explore = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setBlogs(res.data.blogs);
         setMatchArray(res.data.blogs);
         setIsLoading(false);
@@ -267,13 +268,13 @@ const Explore = () => {
 
                     <div className="mt-4">
                       <div className="forBox_shadow text-gray-600 mt-2 max-h-[300px]  overflow-hidden border-b-2 border-gray-300">
-                        <Link
+                       {item && <Link
                           to={item.id}
                           className=""
                           dangerouslySetInnerHTML={{
                             __html: DOMPurify.sanitize(item.Description),
                           }}
-                        ></Link>
+                        ></Link>}
                       </div>
                       {userId && (
                         <div className="mt-3 flex items-center gap-4 text-gray-700">

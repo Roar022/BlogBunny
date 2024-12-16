@@ -10,7 +10,7 @@ const protect = asyncHandler(async (req:AuthenticatedRequest, res:Response, next
         // console.log
         // const token = req.header('token');
         // console.log("HI there");
-        // console.log(req.cookies.signInToken)
+        console.log("sign in token",req.cookies);
         const token = req.cookies.signInToken;
         if (!token) {
             res.status(401);

@@ -17,7 +17,7 @@ export const UserBlogs = () => {
   const [noMatch, setNoMatch] = useState(null);
   const [matchArray, setMatchArray] = useState(null);
   const navigate = useNavigate();
-  console.log("blogs ",blogs)
+  // console.log("blogs ",blogs)
 
   function findMatches(wordToMatch, blogs) {
     return blogs.filter((blog) => {
@@ -131,8 +131,10 @@ export const UserBlogs = () => {
         console.log(err);
       });
   }
-
-  useEffect(() => {
+// const Token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NWYyM2MwZDMyMDNmZjJjZTViYzI5YiIsImlhdCI6MTczNDM2NTYyNCwiZXhwIjoxNzM0NDUyMDI0fQ.2_7evfmBz5A-Y99vgqy--J3fkw_X9X71zCQZ-vluXBU`
+  
+useEffect(() => {
+    // console.log(Token)
     axios
       .get(`${Server_url}api/blogs/getuserblog`, {
         headers: {
@@ -150,10 +152,10 @@ export const UserBlogs = () => {
         console.log(e);
       });
   }, []);
-
+// console.log("matchArray ",matchArray)
   return (
     <section className="">
-      {matchArray && noMatch && <Loader />}
+      {!matchArray && !noMatch && <Loader />}
       <section className="h-[calc(100vh-90px)] overflow-auto py-2 overscroll-auto">
         {/* <section className="  community_background  py-2  overflow-auto overscroll-auto"> */}
         {matchArray && matchArray.length > 0 && (
@@ -206,7 +208,7 @@ export const UserBlogs = () => {
                 matchArray &&
                 matchArray.length > 0 &&
                 matchArray.map((item, idx) => {
-                  if (!item._id) {
+                  if (!item.id) {
                     console.error("Blog missing _id:", item);
                     return null; // Skip this iteration if _id is missing
                   }

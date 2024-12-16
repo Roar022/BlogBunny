@@ -23,7 +23,7 @@ export const addComment = asyncHandler(
           description: description,
           blogId: blogId,
           userId: user.id, 
-          name: user.username// Assuming userId corresponds to an existing User in your database
+          // name: user.username// Assuming userId corresponds to an existing User in your database
         },
       });
       await prisma.user.update({

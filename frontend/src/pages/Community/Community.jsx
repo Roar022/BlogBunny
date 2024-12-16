@@ -16,10 +16,11 @@ const Community = () => {
       });
       try {
         const a = await axios.get("http://localhost:1337/api/blogs");
+        // console.log(a.data.data[0].title);
         a.data.data.map((item) => {
-          const id = item.id;
-          const t = item.attributes.title;
-          const d = item.attributes.description;
+          const id = item.documentId;
+          const t = item.title;
+          const d = item.description;
           setBlogs((prev) => [...prev, { id: id, title: t, description: d }]);
         });
         setTimeout(
@@ -74,9 +75,9 @@ const Community = () => {
       const data = await axios.post("http://localhost:1337/api/blogs", {
         data: valued,
       });
-      const id = data.data.data.id;
-      const t = data.data.data.attributes.title;
-      const d = data.data.data.attributes.description;
+      const id = data.data.data.documentId;
+      const t = data.data.data.title;
+      const d = data.data.data.description;
       const blog = {
         id: id,
         title: t,
@@ -142,6 +143,7 @@ const Community = () => {
       >
         {blogs.length > 0 &&
           blogs.map((item, idx) => {
+            // console.log(item);
             return (
               <Link
                 to={`/community/${item.id}`}

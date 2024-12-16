@@ -4,7 +4,7 @@ import {  Request, Response} from "express";
 
 // Extend the Request interface to include "USER" property
 interface AuthenticatedRequest extends Request {
-    user?: any;
+    user: any;
 }
 
 export const createBlog = asyncHandler(async(req:AuthenticatedRequest, res:Response)=>{
@@ -255,8 +255,8 @@ export const getBlogById = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getUserBlog = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-  const userId = req.user._id;
-  console.log("in get user blog",userId)
+  const userId = req.user.id;
+  // console.log("in get user blog",userId)
   const prisma = new PrismaClient();
   try{
   const blog = await prisma.blog.findMany({
@@ -323,7 +323,7 @@ export const deleteBlog = asyncHandler(async (req: AuthenticatedRequest, res: Re
 
 export const getAllBlogsExceptUser = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
   const user = req.user;
-  
+  // console.log(req)
   const prisma = new PrismaClient();
   try {
     
