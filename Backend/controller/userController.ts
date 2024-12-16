@@ -127,10 +127,10 @@ export const loginUser = asyncHandler(async (req:Request, res:Response) => {
                 path: "/",
                 httpOnly: true,
                 expires: new Date(Date.now() + 360000000), // 1 day
-                sameSite: "none",
+                sameSite: "strict",
                 secure: false
             })
-            console.log("Cookie headers:", res.getHeaders());
+            // console.log("Cookie headers:", res.getHeaders());
             // console.log(token);
             return res.status(200).json({user:{
                 email:user.email,

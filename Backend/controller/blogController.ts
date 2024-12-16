@@ -264,7 +264,7 @@ export const getUserBlog = asyncHandler(async (req: AuthenticatedRequest, res: R
       userId: userId,
     },
   });
-  console.log(blog);
+  // console.log(blog);
   if (!blog) {
     throw new Error("Blog not found.");
   }
@@ -291,7 +291,7 @@ export const deleteBlog = asyncHandler(async (req: AuthenticatedRequest, res: Re
       throw new Error("Invalid Request.");
   }
   // Check if the blog exists
-  console.log(blogId,user.id)
+  // console.log(blogId,user.id)
   const existingBlog = await prisma.blog.findFirst({
     where: {
       id: blogId,
