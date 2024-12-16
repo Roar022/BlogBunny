@@ -39,6 +39,7 @@ const TextEditor = () => {
   const Token = sessionStorage.getItem("token");
   // Handle Quill changes
   const navigate = useNavigate();
+  console.log(isEdit);
   useEffect(() => {
     if (isEdit) {
       axios
@@ -74,7 +75,7 @@ const TextEditor = () => {
           if (imgUrl.startsWith("data:image")) {
             // Image is in base64 format, upload to Cloudinary
             idLoad = toast.loading("Please wait, Saving Image...", {
-              position: toast.POSITION.TOP_RIGHT,
+              // position: toast.POSITION.TOP_RIGHT,
             });
 
             setUploadingImage(true);
@@ -99,7 +100,7 @@ const TextEditor = () => {
                   render: "Image Saved.",
                   type: "success",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },
@@ -117,7 +118,7 @@ const TextEditor = () => {
             render: "Error in saving image.",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -147,7 +148,7 @@ const TextEditor = () => {
       description: editorHtml,
     };
     const idLoad = toast.loading("Please wait, Adding Blog...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     try {
       const postBlog = await axios.post(
@@ -161,7 +162,7 @@ const TextEditor = () => {
             render: "Successfuly Created blog.",
             type: "success",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -175,7 +176,7 @@ const TextEditor = () => {
             render: "Network Error",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -202,7 +203,7 @@ const TextEditor = () => {
     };
     console.log(formdata);
     const idLoad = toast.loading("Please wait, Editing blog...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     try {
       const postBlog = await axios.post(
@@ -216,7 +217,7 @@ const TextEditor = () => {
             render: "Successfuly Edited blog.",
             type: "success",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -230,7 +231,7 @@ const TextEditor = () => {
             render: "Network Error",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },

@@ -17,6 +17,7 @@ export const UserBlogs = () => {
   const [noMatch, setNoMatch] = useState(null);
   const [matchArray, setMatchArray] = useState(null);
   const navigate = useNavigate();
+  console.log("blogs ",blogs)
 
   function findMatches(wordToMatch, blogs) {
     return blogs.filter((blog) => {
@@ -53,7 +54,7 @@ export const UserBlogs = () => {
   function deletepost(e, pid) {
     // console.log(pid)
     const idLoad = toast.loading("Please wait, deleting post...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     axios
       .delete(`${Server_url}api/blogs/delete/${pid}`, {
@@ -85,7 +86,7 @@ export const UserBlogs = () => {
                   render: "Successfuly deleted the blog.",
                   type: "success",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },
@@ -100,7 +101,7 @@ export const UserBlogs = () => {
                   render: "Error deleting post.",
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },
@@ -121,7 +122,7 @@ export const UserBlogs = () => {
               render: "Error deleting post.",
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              // position: toast.POSITION.TOP_RIGHT,
               autoClose: 1000,
             });
           },
@@ -139,11 +140,12 @@ export const UserBlogs = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log("API Response:", res.data); 
         setBlogs(res.data.blog);
         setMatchArray(res.data.blog);
       })
       .catch((e) => {
+        console.log("error i userBLog client")
         //   toast.error("Error deleting posts");
         console.log(e);
       });
@@ -151,7 +153,7 @@ export const UserBlogs = () => {
 
   return (
     <section className="">
-      {!matchArray && !noMatch && <Loader />}
+      {matchArray && noMatch && <Loader />}
       <section className="h-[calc(100vh-90px)] overflow-auto py-2 overscroll-auto">
         {/* <section className="  community_background  py-2  overflow-auto overscroll-auto"> */}
         {matchArray && matchArray.length > 0 && (
@@ -203,7 +205,12 @@ export const UserBlogs = () => {
               {noMatch == null &&
                 matchArray &&
                 matchArray.length > 0 &&
-                matchArray.map((item, idx) => (
+                matchArray.map((item, idx) => {
+                  if (!item._id) {
+                    console.error("Blog missing _id:", item);
+                    return null; // Skip this iteration if _id is missing
+                  }
+                  return (
                   <div
                     key={idx}
                     className="border-2  bg-white w-200px md:p-4 p-2 shadow-md rounded-md"
@@ -229,7 +236,7 @@ export const UserBlogs = () => {
                           <div
                             className="cursor-pointer w-1/4 text-end"
                             onClick={(e) => {
-                              navigate(`/dashboard/edit?id=${item.id}`);
+                              navigate(`/dashboard/edit?id=${item._id}`);
                             }}
                           >
                             <svg
@@ -291,7 +298,7 @@ export const UserBlogs = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                )})}
             </ul>
           </div>
         </div>

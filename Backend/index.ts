@@ -17,8 +17,9 @@ app.use(express.json());
 
 // Parse incoming requests data
 app.use(express.urlencoded({ extended: true }))
-
-const PORT =  5001;
+app.use(cors({
+  origin:"http://localhost:3000", credentials : true }));
+const PORT =  5000;
 app.get("/", (req:any,res:any)=>{
   return res.send("Hi there")
 })

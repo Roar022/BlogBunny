@@ -5,6 +5,7 @@ import Server_url from "../Utils/server_url"
 import axios from "axios";
 import {redirect, useNavigate} from "react-router-dom";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export function loader({ request }) {
   if (sessionStorage.getItem("token") !== null) {
@@ -52,12 +53,12 @@ const Register = () => {
     const {name,value}=e.target;
     setSignin(prev=>({...prev,[name]:value}));
   }
+
   function handleSignin(e){
     console.log(signin)
     e.preventDefault();
-    const idLoad = toast.loading("Checking Credentials...", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+    // console.log(toast.POSITION);
+    const idLoad = toast.loading("Checking Credentials...",);
     axios.post(`${Server_url}api/users/login`,signin)
     .then((res)=>{
       sessionStorage.setItem("token",res.data.user.token)
@@ -70,7 +71,6 @@ const Register = () => {
             render: "Welcome to BlogBunny",
             type: "success",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -88,7 +88,7 @@ const Register = () => {
             render: "Invalid Credentials",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -102,7 +102,7 @@ const Register = () => {
   function handleSignup(e){
     e.preventDefault();
     const idLoad = toast.loading("Checking Credentials...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     axios.post(`${Server_url}api/users/register`,signup)
     .then((res)=>{
@@ -117,7 +117,7 @@ const Register = () => {
             render: "Welcome to BlogBunny",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -133,7 +133,7 @@ const Register = () => {
             render: "Invalid Credentials",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },

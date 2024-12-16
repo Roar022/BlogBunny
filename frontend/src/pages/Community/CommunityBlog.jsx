@@ -28,7 +28,7 @@ const CommunityBlog = () => {
   async function onSubmit(event) {
     event.preventDefault();
     const idLoad = toast.loading("Editing Blog...", {
-        position: toast.POSITION.TOP_RIGHT,
+        // position: toast.POSITION.TOP_RIGHT,
       });
     try {
         const data=await axios.put(`http://localhost:1337/api/blogs/${params.cid}`,{data:valued})
@@ -48,7 +48,7 @@ const CommunityBlog = () => {
             render: "Blog Edited",
             type: "success",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -61,7 +61,7 @@ const CommunityBlog = () => {
                 render: "Invalid Credentials",
                 type: "error",
                 isLoading: false,
-                position: toast.POSITION.TOP_RIGHT,
+                // position: toast.POSITION.TOP_RIGHT,
                 autoClose: 1000,
               });
             },

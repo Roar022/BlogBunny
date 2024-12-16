@@ -9,7 +9,7 @@ const LikeButton = ({blogId, likes}) => {
     const [Bloglikes, setBlogLikes] = useState(likes);
     function handleLike(e, id) {
         const idLoad = toast.loading("Please wait, processing...", {
-          position: toast.POSITION.TOP_RIGHT,
+          // position: toast.POSITION.TOP_RIGHT,
         });
         
             if (isLiked === true) {
@@ -31,7 +31,7 @@ const LikeButton = ({blogId, likes}) => {
                             render: "Thank you for waiting.",
                             type: "success",
                             isLoading: false,
-                            position: toast.POSITION.TOP_RIGHT,
+                            // position: toast.POSITION.TOP_RIGHT,
                             autoClose: 1000,
                           });
                         },
@@ -47,7 +47,7 @@ const LikeButton = ({blogId, likes}) => {
                         render: "Error unliking the post",
                         type: "error",
                         isLoading: false,
-                        position: toast.POSITION.TOP_RIGHT,
+                        // position: toast.POSITION.TOP_RIGHT,
                         autoClose: 1000,
                       });
                     },
@@ -76,7 +76,7 @@ const LikeButton = ({blogId, likes}) => {
                         render: "Thank you for waiting.",
                         type: "success",
                         isLoading: false,
-                        position: toast.POSITION.TOP_RIGHT,
+                        // position: toast.POSITION.TOP_RIGHT,
                         autoClose: 1000,
                       });
                     },
@@ -91,7 +91,7 @@ const LikeButton = ({blogId, likes}) => {
                         render: "Error Liking the post",
                         type: "error",
                         isLoading: false,
-                        position: toast.POSITION.TOP_RIGHT,
+                        // position: toast.POSITION.TOP_RIGHT,
                         autoClose: 1000,
                       });
                     },

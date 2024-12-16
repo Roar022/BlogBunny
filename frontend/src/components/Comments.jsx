@@ -38,7 +38,7 @@ const Comments = ({ bid, comments, setComments }) => {
   }, [comments]);
   function deleteComment(e, cid, bid) {
     const idLoad = toast.loading("Please wait, deleting comment...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     axios
       .delete(`${Server_url}api/comments/delete/${cid}`, {
@@ -73,7 +73,7 @@ const Comments = ({ bid, comments, setComments }) => {
                   render: "Comment Deleted.",
                   type: "success",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },
@@ -88,7 +88,7 @@ const Comments = ({ bid, comments, setComments }) => {
                   render: "Some Error Occured.",
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },

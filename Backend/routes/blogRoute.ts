@@ -7,7 +7,7 @@ import { createBlog, deleteBlog, dislikeBlog, getAllBlogs, getAllBlogsExceptUser
 router.post("/create", protect, createBlog)
 router.post("/update", protect, updateBlog)
 router.get("/getblogbyId/:blogId", getBlogById)
-router.get("/getuserblog", protect, getUserBlog)
+router.get("/getuserblog",protect, getUserBlog)
 router.delete("/delete/:blogId", protect, deleteBlog)
 router.post("/likeblog", protect, likeBlog)
 router.post("/dislikeblog", protect, dislikeBlog)

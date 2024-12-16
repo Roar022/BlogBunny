@@ -60,7 +60,7 @@ const Explore = () => {
   function deletepost(e, pid) {
     // console.log(pid)
     const idLoad = toast.loading("Please wait, deleting post...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     axios
       .delete(`${Server_url}api/blogs/delete/${pid}`, {
@@ -92,7 +92,7 @@ const Explore = () => {
                   render: "Successfuly deleted the blog.",
                   type: "success",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },
@@ -107,7 +107,7 @@ const Explore = () => {
                   render: "Error deleting post.",
                   type: "error",
                   isLoading: false,
-                  position: toast.POSITION.TOP_RIGHT,
+                  // position: toast.POSITION.TOP_RIGHT,
                   autoClose: 1000,
                 });
               },
@@ -128,7 +128,7 @@ const Explore = () => {
               render: "Error deleting post.",
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              // position: toast.POSITION.TOP_RIGHT,
               autoClose: 1000,
             });
           },

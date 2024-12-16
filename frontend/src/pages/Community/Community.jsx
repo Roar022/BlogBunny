@@ -12,7 +12,7 @@ const Community = () => {
   useEffect(() => {
     const fetchfn = async () => {
       const idLoad = toast.loading("Please wait, Fetching post...", {
-        position: toast.POSITION.TOP_RIGHT,
+        // position: toast.POSITION.TOP_RIGHT,
       });
       try {
         const a = await axios.get("http://localhost:1337/api/blogs");
@@ -28,7 +28,7 @@ const Community = () => {
               render: "Community blogs.",
               type: "success",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              // position: toast.POSITION.TOP_RIGHT,
               autoClose: 1000,
             });
           },
@@ -41,7 +41,7 @@ const Community = () => {
               render: "Error in fetchng blog.",
               type: "error",
               isLoading: false,
-              position: toast.POSITION.TOP_RIGHT,
+              // position: toast.POSITION.TOP_RIGHT,
               autoClose: 1000,
             });
           },
@@ -68,7 +68,7 @@ const Community = () => {
   async function onSubmit(event) {
     event.preventDefault();
     const idLoad = toast.loading("Please wait, adding blog...", {
-      position: toast.POSITION.TOP_RIGHT,
+      // position: toast.POSITION.TOP_RIGHT,
     });
     try {
       const data = await axios.post("http://localhost:1337/api/blogs", {
@@ -89,7 +89,7 @@ const Community = () => {
             render: "Successfully added blog.",
             type: "success",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },
@@ -107,7 +107,7 @@ const Community = () => {
             render: "Error adding blog.",
             type: "error",
             isLoading: false,
-            position: toast.POSITION.TOP_RIGHT,
+            // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
           });
         },

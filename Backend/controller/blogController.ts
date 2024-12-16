@@ -255,8 +255,8 @@ export const getBlogById = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getUserBlog = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
-  const userId = req.user.id;
-  
+  const userId = req.user._id;
+  console.log("in get user blog",userId)
   const prisma = new PrismaClient();
   try{
   const blog = await prisma.blog.findMany({
@@ -264,6 +264,7 @@ export const getUserBlog = asyncHandler(async (req: AuthenticatedRequest, res: R
       userId: userId,
     },
   });
+  console.log(blog);
   if (!blog) {
     throw new Error("Blog not found.");
   }
