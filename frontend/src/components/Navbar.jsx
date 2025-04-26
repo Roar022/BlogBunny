@@ -19,13 +19,21 @@ const Navbar = () => {
   const userId = sessionStorage.getItem("userId");
   function handleLogout() {
     setIsLoggingOut(true);
+    const token = sessionStorage.getItem("token"); 
     axios
-      .post(`${Server_url}api/users/logout`, {})
+    .post(`${Server_url}api/users/logout`, {}, {
+      headers: {
+          Authorization: `Bearer ${token}`,  // Include the token in the Authorization header
+      },
+  })
       .then((res) => {
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("email");
         sessionStorage.removeItem("userId");
+        sessionStorage.clear(); 
+        console.log("Session Storage Cleared!");
+        document.cookie = "authjs.session-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         navigate("/");
         console.log(res);
         // navigate to landing page

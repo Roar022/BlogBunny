@@ -37,9 +37,25 @@ const TextEditor = () => {
   const [title, setTitle] = useState("");
   const [label, setLabel] = useState("");
   const Token = sessionStorage.getItem("token");
+  const [suggestedTitles, setSuggestedTitles] = useState([]);
   // Handle Quill changes
   const navigate = useNavigate();
   console.log(isEdit);
+
+  useEffect(() => {
+    fetch(`${Server_url}api/ai/trending-titles`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch trending titles");
+        return res.json();
+      }) // parse JSON
+      .then((data) => setSuggestedTitles(data.titles))
+      .catch((err) => console.error(err));
+  }, []);
+
   useEffect(() => {
     if (isEdit) {
       axios
@@ -62,6 +78,34 @@ const TextEditor = () => {
     }
     setIsLoading(false);
   }, []);
+
+  const handleSuggest = async () => {
+    const idLoad = toast.loading("Please wait, Writing blog...", {
+      // position: toast.POSITION.TOP_RIGHT,
+    });
+    const resp = await fetch(`${Server_url}api/ai/suggest-content`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+      body: JSON.stringify({ title }),
+    });
+    const data = await resp.json();
+    setEditorHtml(data.markdown);
+    setTimeout(
+      function () {
+        toast.update(idLoad, {
+          render: "Blog added successfully",
+          type: "success",
+          isLoading: false,
+          // position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000,
+        });
+      },
+      [500]
+    );
+  };
 
   const handleQuillChange = async (html) => {
     let idLoad;
@@ -147,13 +191,20 @@ const TextEditor = () => {
       label,
       description: editorHtml,
     };
+    const Token = sessionStorage.getItem("token");
+
     const idLoad = toast.loading("Please wait, Adding Blog...", {
       // position: toast.POSITION.TOP_RIGHT,
     });
     try {
       const postBlog = await axios.post(
-        "http://localhost:5000/api/blogs/create",
-        formdata
+        "http://localhost:5001/api/blogs/create",
+        formdata,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
       );
       console.log(postBlog.data);
       setTimeout(
@@ -207,7 +258,7 @@ const TextEditor = () => {
     });
     try {
       const postBlog = await axios.post(
-        "http://localhost:5000/api/blogs/update",
+        "http://localhost:5001/api/blogs/update",
         formdata
       );
       console.log(postBlog);
@@ -245,6 +296,15 @@ const TextEditor = () => {
       {isEdit && isLoading && <Loader />}
       <Navbar />
       <hr className="border-t border-gray-300 my-3 hidden md:block" />
+      // restructure frontend
+      {suggestedTitles.length>0 && (
+        <div>
+          {JSON.parse(suggestedTitles)?.titles.map((t) => <div className="cursor-pointer" onClick={()=>{
+            setTitle(t);
+            handleSuggest()
+          }}>{t}</div>) ?? ""}
+        </div>
+      )}
       <div className="h-full flex  flex-col ">
         <div className="w-full  flex justify-between items-center py-1 px-3">
           <input
@@ -261,6 +321,12 @@ const TextEditor = () => {
             onChange={(e) => setLabel((prev) => e.target.value)}
             className="focus:outline-none md:hidden block border-b-2 w-[25%] border-indigo-400 px-5 py-1  text-sm"
           />
+          <button
+            onClick={handleSuggest}
+            className=" px-3 py-2 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-md min-w-[50px] min-h-[30px] shadow md:inline"
+          >
+            Suggest
+          </button>
 
           <button className=" px-3 py-2 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-md min-w-[50px] min-h-[30px] shadow md:inline">
             <div

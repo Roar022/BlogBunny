@@ -59,9 +59,10 @@ const Register = () => {
     e.preventDefault();
     // console.log(toast.POSITION);
     const idLoad = toast.loading("Checking Credentials...",);
-    axios.post(`${Server_url}api/users/login`,signin,{
-      withCredentials: true
-    })
+    // axios.post(`${Server_url}api/users/login`,signin,{
+    //   withCredentials: true
+    // })
+    axios.post(`${Server_url}api/users/login`,signin)
     .then((res)=>{
       sessionStorage.setItem("token",res.data.user.token)
       sessionStorage.setItem("email",res.data.user.email)
@@ -117,7 +118,7 @@ const Register = () => {
         function () {
           toast.update(idLoad, {
             render: "Welcome to BlogBunny",
-            type: "error",
+            type: "success",
             isLoading: false,
             // position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,

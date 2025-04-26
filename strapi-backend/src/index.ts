@@ -25,16 +25,14 @@ export default {
     });
 
     io.on("connection",function(socket){
-      console.log(7)
       socket.on("create-blog",(valued)=>{
+        console.log("object");
         io.sockets.emit("new-blog",valued)
       })
       socket.on("edit-blog",(value)=>{
-        console.log(4)
         io.sockets.emit("edited-blog",value)
       })
       socket.on("changed-blog",(val)=>{
-        console.log(444)
         io.sockets.emit("nchanged-blog",val)
       })
     })

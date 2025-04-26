@@ -4,6 +4,7 @@ import userRoute from "./routes/userRoute"
 import blogRoute from "./routes/blogRoute"
 import { errorHandler } from "./middleware/errorMiddleware";
 import commentRoute from "./routes/commentRoute"
+import aiRoute from "./routes/aiRoute";
 
 const cors = require("cors")
 const cookieParser = require("cookie-parser");
@@ -23,7 +24,7 @@ const corsOptions = {
   credentials: true, // Allow cookies to be sent and received
 };
 app.use(cors(corsOptions));
-const PORT =  5000;
+const PORT =  5001;
 app.get("/", (req:any,res:any)=>{
   return res.send("Hi there")
 })
@@ -31,6 +32,8 @@ app.get("/", (req:any,res:any)=>{
 app.use("/api/users", userRoute);
 app.use("/api/blogs", blogRoute);
 app.use("/api/comments",commentRoute);
+app.use("/api/ai", aiRoute);
+
 
 app.use(errorHandler)
 

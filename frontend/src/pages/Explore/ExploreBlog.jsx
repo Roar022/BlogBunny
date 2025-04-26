@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { FaHeart } from "react-icons/fa";
 import DOMPurify from "dompurify";
-
+import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import Server_url from "../../Utils/server_url";
 import Navbar from "../../components/Navbar";
@@ -47,6 +47,12 @@ const ExploreBlog = () => {
       .then((res) => {
         e.target[0].value = "";
         console.log(res);
+        if (res.data.vulgar==true) {
+          toast.error("Your comment contains inappropriate content.");
+          // return; // Don't proceed further if vulgar
+        }
+
+        // cheeeck if res.data.vulagr is true then return toast
            
         setIsPostingComment(false);
         //   if (res.data.status == "success") {

@@ -19,6 +19,8 @@ export const UserBlogs = () => {
   const navigate = useNavigate();
   // console.log("blogs ",blogs)
 
+  console.log("yash",Token)
+
   function findMatches(wordToMatch, blogs) {
     return blogs.filter((blog) => {
       let regex;
@@ -63,7 +65,6 @@ export const UserBlogs = () => {
         },
       })
       .then((res) => {
-        // console.log(res)
         // if (res.data.status == "success") {
         //   toast.success("Post Deleted", {
         //     position: toast.POSITION.TOP_RIGHT,

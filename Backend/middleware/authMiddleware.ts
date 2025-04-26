@@ -1,55 +1,56 @@
 import { PrismaClient, User } from "@prisma/client";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 const jwt = require('jsonwebtoken');
+
 interface AuthenticatedRequest extends Request {
     user?: any;
-  }
-const protect = asyncHandler(async (req:AuthenticatedRequest, res:Response, next) => {
+}
+
+const protect = asyncHandler(async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     try {
-        // console.log
-        // const token = req.header('token');
-        // console.log("HI there");
-        console.log("sign in token",req.cookies);
-        const token = req.cookies.signInToken;
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            res.status(401).json({ message: "No token provided, authorization denied" });
+            return;
+        }
+        
+        const token = authHeader.split(" ")[1];  // Extract the token from "Bearer <token>"
         if (!token) {
-            res.status(401);
-            throw new Error("Not authorized, please login")
+            res.status(401).json({ message: "Token is missing, authorization denied" });
+            return;
         }
 
-        //Verify token
-        const verified = jwt.verify(token, process.env.JWT_SECRET!) as {id:string};
-        // Get user id from token
-        // const user = await User.findById(verified.id).select("-password");
-        if(!verified){
-            throw new Error("Please Login.")
-        }
+        // Verify the token
+        const verified = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+        console.log("verified",verified);
+
+        // Get user info from the token
         const prisma = new PrismaClient();
-
         const user = await prisma.user.findUnique({
-            where:{
-                id:verified.id
-            }
-        })
+            where: {
+                id: verified.id,
+            },
+        });
+        console.log(user);
         if (!user) {
-            res.status(401)
-            throw new Error("User Not found")
+            res.status(401).json({ message: "User not found, please login" });
+            return;
         }
-        req.user = {
-           username: user.username,
-           email: user.email,
-           id: user.id,
-           location: user.location
 
-        }
-        next();
+        req.user = {
+            username: user.username,
+            email: user.email,
+            id: user.id,
+            location: user.location,
+        };
+
+        next();  // Proceed to the next middleware or route handler
 
     } catch (error) {
-        res.status(401);
-        throw new Error("Not authorized, please login")
-
+        console.log(error);
+        res.status(401).json({ message: "Not authorized, please login" });
     }
 });
 
-
-export default protect
+export default protect;

@@ -67,7 +67,7 @@ export const registerUser = asyncHandler(async (req:Request, res:Response) => {
         // signInToken is name which store token, and path "/" from where we can access token
         res.cookie("signInToken", token, {
             path: "/",
-            // httpOnly: true,
+            httpOnly: true,
             expires: new Date(Date.now() + 1000 * 86400), // 1 day
             sameSite: "none",
             secure: false

@@ -21,8 +21,7 @@ const Comments = ({ bid, comments, setComments }) => {
         }
       )
       .then((res) => {
-        if(res.data.comments.length>0){
-
+        if(res.data.comments.length>=0){
           setComments(res.data.comments);
         }
         else{
@@ -110,7 +109,7 @@ const Comments = ({ bid, comments, setComments }) => {
   return (
     <>
     
-      {!comments&& (
+      {!comments && (
         <Loader2 />
         // <ThreeDots
         //   height="50"
@@ -124,7 +123,7 @@ const Comments = ({ bid, comments, setComments }) => {
         //   visible={true}
         // />
       )}
-      {comments && comments!==null&& comments.length>0 && (
+      {comments && comments!==null && comments.length>0 && (
         <>
           <div className=" mx-3 flex gap-x-2 items-center text-gray-700 my-2  font-semibold">
             <div >

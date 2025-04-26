@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
+import { runVulgarCheck } from "./aiController";
 interface AuthenticatedRequest extends Request {
   user?: any;
 }
@@ -17,12 +18,15 @@ export const addComment = asyncHandler(
     }
     const prisma = new PrismaClient();
     try {
+      const isVulgar = await runVulgarCheck(description);
       
       const newComment = await prisma.comments.create({
         data: {
           description: description,
           blogId: blogId,
           userId: user.id, 
+          vulgar: isVulgar,
+          
           // name: user.username// Assuming userId corresponds to an existing User in your database
         },
       });
@@ -50,11 +54,14 @@ export const addComment = asyncHandler(
 
   }
 );
+
 export const getComments = asyncHandler(async (req: Request, res: Response) => {
   const prisma = new PrismaClient();
   try {
   
-    const comments = await prisma.comments.findMany();
+    const comments = await prisma.comments.findMany({
+      where: { vulgar: false },
+    });
   
     return res.status(200).json(comments);
     
@@ -64,12 +71,11 @@ export const getComments = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getCommentsByBlogId =  asyncHandler(async (req: Request, res: Response) => {
-  const {blogId} = req.body;
+  const {blogId, vulgar} = req.body;
   const prisma = new PrismaClient();
   try{
-
     const comments = await prisma.comments.findMany({
-      where: { blogId: blogId },
+      where: { blogId: blogId, vulgar:false },
     });
     return res.status(200).json({comments, message:"success"});
   }
