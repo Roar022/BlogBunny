@@ -27,7 +27,6 @@ export async function suggestBlogContent(req: Request, res: Response) {
 
 export async function suggestTrendingTitles(req: Request, res: Response) {
     try {
-
         const response = await model.generateContent({
             contents: [{ role: "user", parts: [{ text: `You are an expert content strategist. ` +
           `Suggest 5 trending blog post titles that a tech blogger could write about today. ` +

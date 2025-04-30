@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Navbar from "./Navbar";
+import { TbBulb } from "react-icons/tb";
 import { IoMdSend } from "react-icons/io";
+import { FcIdea } from "react-icons/fc";
 import Accordian from "./Accordian";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -42,6 +44,7 @@ const TextEditor = () => {
   const navigate = useNavigate();
   console.log(isEdit);
 
+  // 
   useEffect(() => {
     fetch(`${Server_url}api/ai/trending-titles`, {
       headers: {
@@ -56,6 +59,7 @@ const TextEditor = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  // For getting blogs
   useEffect(() => {
     if (isEdit) {
       axios
@@ -79,10 +83,15 @@ const TextEditor = () => {
     setIsLoading(false);
   }, []);
 
+  // it will give content for given title
   const handleSuggest = async () => {
+    if (title.size<=5) {
+      return toast.error("Please provide title of at least 5 words");
+    }
     const idLoad = toast.loading("Please wait, Writing blog...", {
       // position: toast.POSITION.TOP_RIGHT,
     });
+   
     const resp = await fetch(`${Server_url}api/ai/suggest-content`, {
       method: "POST",
       headers: {
@@ -90,6 +99,41 @@ const TextEditor = () => {
         Authorization: `Bearer ${Token}`,
       },
       body: JSON.stringify({ title }),
+    });
+    const data = await resp.json();
+    setEditorHtml(data.markdown);
+    setTimeout(
+      function () {
+        toast.update(idLoad, {
+          render: "Blog added successfully",
+          type: "success",
+          isLoading: false,
+          // position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000,
+        });
+      },
+      [500]
+    );
+  };
+
+  // For suggesting ideas
+  const handleSuggest1 = async (suggestTitle) => {
+    if (!suggestTitle || suggestTitle.split(" ").length < 5) {
+      return toast.error("Please provide title of at least 5 words");
+    }
+    setTitle(suggestTitle);
+    console.log(suggestTitle)
+    const idLoad = toast.loading("Please wait, Writing blog...", {
+      // position: toast.POSITION.TOP_RIGHT,
+    });
+   
+    const resp = await fetch(`${Server_url}api/ai/suggest-content`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Token}`,
+      },
+      body: JSON.stringify({ title:suggestTitle }),
     });
     const data = await resp.json();
     setEditorHtml(data.markdown);
@@ -296,37 +340,37 @@ const TextEditor = () => {
       {isEdit && isLoading && <Loader />}
       <Navbar />
       <hr className="border-t border-gray-300 my-3 hidden md:block" />
-      // restructure frontend
-      {suggestedTitles.length>0 && (
-        <div>
-          {JSON.parse(suggestedTitles)?.titles.map((t) => <div className="cursor-pointer" onClick={()=>{
-            setTitle(t);
-            handleSuggest()
-          }}>{t}</div>) ?? ""}
-        </div>
-      )}
+      
       <div className="h-full flex  flex-col ">
         <div className="w-full  flex justify-between items-center py-1 px-3">
+          <div className="flex items-center w-[82%] my-2">
+
           <input
             type="text"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle((prev) => e.target.value)}
-            className="focus:outline-none border-b-2 md:w-[85%] w-[58%] md:m-0 mr-1 border-indigo-400 px-5  text-lg"
-          />
-          <input
+            className="focus:outline-none border-b-2 md:w-[85%] w-[50%] md:m-0 mr-1 border-indigo-400 px-5  text-lg"
+            />
+          {/* <input
             type="text"
             placeholder="label"
             value={label}
             onChange={(e) => setLabel((prev) => e.target.value)}
             className="focus:outline-none md:hidden block border-b-2 w-[25%] border-indigo-400 px-5 py-1  text-sm"
-          />
+          /> */}
           <button
             onClick={handleSuggest}
             className=" px-3 py-2 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-md min-w-[50px] min-h-[30px] shadow md:inline"
-          >
-            Suggest
+            >
+            <div className="flex justify-center items-center  md:space-x-2 text-lg">
+              <TbBulb className="text-lg inline-block  " />
+              <div className="md:block hidden pl-3 border-indigo-200 font-normal border-l">
+                Suggest
+              </div>
+            </div>
           </button>
+          </div>
 
           <button className=" px-3 py-2 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-md min-w-[50px] min-h-[30px] shadow md:inline">
             <div
@@ -353,7 +397,29 @@ const TextEditor = () => {
               formats={TextEditor.formatArray}
             />
           </div>
-          <Accordian label={label} setLabel={setLabel} />
+          <div className="w-full md:w-[20%] mt-1">
+            {/* <div className="w-full"> */}
+              <Accordian label={label} setLabel={setLabel} />
+
+            {/* </div> */}
+              {/* <div>Hii This svbs vs schjs js vsn shj sjdvs vjs dv</div> */}
+            {suggestedTitles.length > 0 && (
+              <div className="mt-4">
+                <div className="text-center justify-center">Click on any ideas</div>
+                {JSON.parse(suggestedTitles)?.titles.map((t, index) => (
+                  <div
+                    key={index} 
+                    className="cursor-pointer hover:underline m-2"
+                    onClick={() => {
+                      handleSuggest1(t);
+                    }}
+                  >
+                    {index+1}. {t}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
